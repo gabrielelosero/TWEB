@@ -6,7 +6,7 @@
     <input type="password" name="password" placeholder="Password">
     <input type="submit" value="INVIA" >
     <br />
-    <a href="">clicca qua per registrati</a>
+    <a href="index.php?content=signup">clicca qua per registrati</a>
   </fieldset>
 </form>
 <?php
@@ -19,5 +19,9 @@ if (!empty($_SESSION['username'])) {
 
 if (!empty($_SESSION['loginMessage'])) {
   echo $_SESSION['loginMessage'];
+}
+
+if (!empty($_SESSION['messaggio'])) {
+  echo $_SESSION['messaggio'];
 }
 session_destroy();

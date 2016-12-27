@@ -1,1 +1,12 @@
+#main {border: 1px solid black;}
+
+#menu {width: 200px; float: left; position: absolute; left: 250; border: 1px solid black;}
+#menu li {list-style-type: none}
+
+#formLogin fieldset {border: none;}
+#formSignup fieldset {border: none;}
+
 h1 a {color: red; text-decoration: none;}
+
+.stdWidth {width: 1000px; margin-left: auto; margin-right: auto;}
+.stdHeight {height: 600px;}
