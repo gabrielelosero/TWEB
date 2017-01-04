@@ -2,7 +2,7 @@
 
 <?php
 $nome =  trim($_GET['nome']);
-$spec = getSinglePlayer($nome);
+$spec = getPlayerByName($nome);
 
 $s = mysql_fetch_row($spec);
 ?>

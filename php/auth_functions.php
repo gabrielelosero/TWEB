@@ -71,3 +71,17 @@ if (!empty($_GET['fun'])) {
     $_SESSION['loginMessage'] = 'LOGOUT EFFETTUATO';
   }
 }
+
+function getUserById($id) {
+
+  require("setting.php");
+
+  $query = "SELECT * FROM utenti WHERE id = $id LIMIT 1";
+  $result = mysql_query($query, $conn) or die(mysql_error());
+
+  $r = mysql_fetch_row($result);
+
+  return $r;
+
+}
+?>

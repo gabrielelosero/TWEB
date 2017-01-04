@@ -24,4 +24,9 @@ if (!empty($_SESSION['loginMessage'])) {
 if (!empty($_SESSION['messaggio'])) {
   echo $_SESSION['messaggio'];
 }
+
+if (!empty($_GET['messaggio'])) {
+  if ($_GET['messaggio'] == 'needLogin')
+    echo "Devi loggarti per poter vedere la pagina.";
+}
 session_destroy();

@@ -1,27 +1,30 @@
-<table id="allPlayers">
+<h3 class="tableTitle">Tutti i Giocatori</h3>
+
+<table id="allPlayers" class="tableGiocatori" />
   <tr>  
-    <td>Nome</td>
-    <td>Ruolo</td>
-    <td>Valore</td>
-    <td>Squadra</td>
-    <td>Pres</td>
-    <td>Goal</td>
-    <td>Amm</td>
-    <td>Esp</td>
-    <td>Media</td>
-    <td>FantaMedia</td>
+    <th id="playerName" onclick="ordinaGiocatoriPer('nome')" ordine="asc">Nome</td>
+    <th onclick="ordinaGiocatoriPer('ruolo')">Ruolo</th>
+    <th onclick="ordinaGiocatoriPer('valore')">Valore</th>
+    <th onclick="ordinaGiocatoriPer('squadra')">Squadra</th>
+    <th onclick="ordinaGiocatoriPer('presenze')">Pres</th>
+    <th onclick="ordinaGiocatoriPer('goal')">Goal</th>
+    <th onclick="ordinaGiocatoriPer('ammonizioni')">Amm</th>
+    <th onclick="ordinaGiocatoriPer('espulsioni')">Esp</th>
+    <th onclick="ordinaGiocatoriPer('media')">Media</th>
+    <th onclick="ordinaGiocatoriPer('fantamedia')">FantaMedia</th>
+    <th>COMPRA</th>
   </tr>
 <?php
 
-$giocatori = getPlayers();
-while ($g = mysql_fetch_row($giocatori)) {
-  echo "<tr>";
-  for ($i=1; $i<count($g);$i++)
-    echo "<td>".$g[$i]."</td>";
-  echo "</tr>";
+session_start();
+if (empty($_SESSION['id'])) {
+  header('Location: index.php?content=login&messaggio=needLogin');
 }
+
+$giocatori = getPlayers();
+echo $giocatori;
 
 ?>
 
-  </tr>
+  <!--</tr>-->
 </table>
