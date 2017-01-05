@@ -3,7 +3,9 @@
 <?php
 
 session_start();
-//require('php/team_functions.php');
+if (empty($_SESSION['id'])) {
+  header('Location: index.php?content=login&messaggio=needLogin');
+}
 
 if (!empty($_GET['mode'])) {
   if ($_GET['mode'] == 'list') {

@@ -1,12 +1,21 @@
 #main {border: 1px solid black;}
 
-#menu {width: 200px; float: left; position: absolute; left: 250; border: 1px solid black;}
+#menu {width: 200px; float: left; position: absolute; left: 200; border: 1px solid black;}
 #menu li {list-style-type: none}
+
+#main {padding: 30px;}
 
 #formLogin fieldset {border: none;}
 #formSignup fieldset {border: none;}
 
+.tableTitle {margin-left: 10%; font-size: 2em}
+.tableGiocatori {margin-left: auto; margin-right: auto; border-collapse: collapse; width: 900px;}
+.tableGiocatori td {border: 1px solid black; text-align: center;}
+
 h1 a {color: red; text-decoration: none;}
 
+.click {color: black; text-decoration: none;}
+.click:hover {font-weight: bold;}
 .stdWidth {width: 1000px; margin-left: auto; margin-right: auto;}
 .stdHeight {height: 600px;}
+.invisible {display: none}

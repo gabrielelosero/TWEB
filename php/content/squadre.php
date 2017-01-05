@@ -19,7 +19,7 @@ if (!empty($_GET['squadra'])) {
 
 <?php
 
-$squadra = getPlayersFromTeam($_GET['squadra']);
+$squadra = getPlayersBySquadra($_GET['squadra']);
 echo $squadra;
 
 ?>

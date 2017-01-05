@@ -20,6 +20,15 @@ if (!empty($_POST['fun'])) {
     $j_table = json_encode($table);
     echo $j_table;
     break;
+
+  case 'vendi':
+    require("team_functions.php");
+    if (session_status() == PHP_SESSION_NONE) {
+      session_start();
+    }
+    $id_player = $_POST['playerid'];
+    $id_team = $_SESSION['teamid'];
+    $result = vendiGiocatore($id_player, $id_team);
   }
 }
 
@@ -72,7 +81,37 @@ function getPlayerByName($nome) {
   return $result;
 }
 
-function getPlayersFromTeam($squadra) {
+function getPlayersByTeam($id_team) {
+
+  require("setting.php");
+  
+  $query = "SELECT * FROM giocatori_team WHERE id_team = ".$id_team.";";
+  $result = mysql_query($query, $conn) or die(mysql_error());
+  
+  $players = Array();
+  while ($r = mysql_fetch_row($result)) {
+    array_push($players, $r[0]);
+  }
+  $q = "SELECT * FROM giocatori WHERE id IN (";
+  for ($i=0; $i<count($players); $i++) {
+    $q .= "'".$players[$i]."'";
+    if ($i != count($players) - 1) {
+      $q .= ",";
+    }
+  }
+  $q .= ");";
+
+  if (count($players) != 0) {
+    $p = mysql_query($q, $conn) or die(mysql_error());
+  } else {
+    return false;
+  }
+
+  $table = genPlayerTable($p, false);
+  return $table;
+}
+
+function getPlayersBySquadra($squadra) {
   
   require("setting.php");
   $query = "SELECT * FROM giocatori WHERE squadra LIKE '%".$squadra."%'";
@@ -88,10 +127,13 @@ function genPlayerTable($r, $list=true) {
   while ($g = mysql_fetch_row($r)) {
     $table .= "<tr>";
     
-    for ($i=1; $i<count($g);$i++) {
+    for ($i=0; $i<count($g);$i++) {
 
       $str = "";
       switch ($i) {
+      case 0: //id
+        $str = "<span class='invisible'>".$g[$i]."</span>";
+        break;
       case 1: //giocatore
         $str = "<a class='click' href='index.php?content=schedaGiocatore&nome=".trim($g[$i])."'>".$g[$i]."</a>";
         break;
