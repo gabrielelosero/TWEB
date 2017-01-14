@@ -11,6 +11,19 @@ function toggleFlag() {
 $(document).ready(function() {
   initialise();
   
+  if ($(".tableGiocatori").length) {
+    td = $(".tableGiocatori").find(".squadra");
+    td.each(function(a, i) {
+      squadra = this.text.trim().toLowerCase();
+      $(this).css('background-image', 'url(img/squadre/' + squadra + '.png)');
+      $(this).css('background-repeat', 'no-repeat');
+      $(this).css('background-position', 'center');
+      $(this).css('background-size', '30px 30px');
+      $(this).css('color', 'rgba(1, 1, 1, 0)');
+    });
+
+  }
+
   if ($("#divSearch").length) {
     count = 0;
     player_input = $("#searchPlayer");

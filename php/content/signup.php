@@ -1,14 +1,14 @@
 <form id="formSignup" action="php/auth_functions.php?fun=signup" method="POST">
   <fieldset>
-    <div>Registrati</div>
-    <input type="text" name="username" placeholder="Username">
+    <span>Registrati</span>
+    <input class="loginTextInput" type="text" name="username" placeholder="Username">
     <br />
-    <input type="password" name="password" placeholder="Password">
+    <input class="loginTextInput" type="password" name="password" placeholder="Password">
     <br />
-    <input type="password" name="verifica" placeholder="Verifica Password">
-    <input type="submit" value="INVIA" >
+    <input class="loginTextInput" type="password" name="verifica" placeholder="Verifica Password">
+    <input class="loginSendInput" type="submit" value="INVIA" >
     <br />
-    <a href="index.php?content=login">clicca qua per loggarti</a>
+    <div class="gotoRegistrati"><a href="index.php?content=login">Clicca qua per loggarti</a></div>
   </fieldset>
 </form>
 <?php

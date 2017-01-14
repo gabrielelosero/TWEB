@@ -8,7 +8,7 @@ if (!empty($_GET['fun'])) {
     session_start();
       
     $user = $_POST['username'];
-    $pass = $_POST['password'];
+    $pass = md5($_POST['password']);
 
     $query = "SELECT * FROM utenti WHERE username='$user' AND password='$pass'";
     $result = mysql_query($query, $conn) or die(mysql_error());
@@ -27,11 +27,14 @@ if (!empty($_GET['fun'])) {
   if ($_GET['fun'] == 'signup') {
 
     $user = $_POST['username'];
-    $pass = $_POST['password'];
-    $ver = $_POST['verifica'];
+    $pass = md5($_POST['password']);
+    $ver = md5($_POST['verifica']);
     $error = null;
 
-    if ($pass != $ver) 
+    if (userExist($user) == 1) 
+      $error = "Esiste già un utente con questo username";
+
+    else if ($pass != $ver) 
       $error = "Le password non corrispondono";
       
     else if (strlen($user) <= 4)
@@ -45,11 +48,11 @@ if (!empty($_GET['fun'])) {
 
     else if (strlen($pass) > 40) 
       $error = "Password troppo lunga";
-    echo $error."<br />";
 
     session_start();
 
     if ($error == null) {
+      echo "qua";
       $query = "INSERT INTO utenti (username, password) VALUES ('$user', '$pass')";
       $result = mysql_query($query) or die(mysql_error());
       if ($result == 1) {
@@ -60,6 +63,7 @@ if (!empty($_GET['fun'])) {
         header('Location: ../index.php?content=signup');
       }
     } else {
+      echo "qua";
       $_SESSION['messaggio'] = $error;
       header('Location: ../index.php?content=signup');
     }
@@ -70,6 +74,20 @@ if (!empty($_GET['fun'])) {
     header('Location: ../index.php?content=login');
     $_SESSION['loginMessage'] = 'LOGOUT EFFETTUATO';
   }
+}
+
+function userExist($user) {
+  echo "asd";
+  require("setting.php");
+  
+  $query = "SELECT * FROM utenti WHERE username = '$user';";
+  $result = mysql_query($query, $conn) or die(mysql_error());
+
+  $numRows = mysql_num_rows($result);
+  if ($numRows == 0) 
+    return 0;
+  else
+    return 1;
 }
 
 function getUserById($id) {

@@ -7,7 +7,7 @@
     <br />
     <input class="loginSendInput" type="submit" value="INVIA" >
     <br />
-    <div class="gotoRegistrati"><a href="index.php?content=signup">REGISTRATI</a></div>
+    <div class="gotoRegistrati"><a href="index.php?content=signup">Clicca qua per registrarti.</a></div>
   
 <?php
 session_start();

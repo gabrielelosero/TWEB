@@ -160,7 +160,7 @@ function genPlayerTable($r, $list=true) {
         $str = "<a class='click' href='index.php?content=schedaGiocatore&nome=".trim($g[$i])."'>".$g[$i]."</a>";
         break;
       case 4: //squadra
-        $str = "<a class='click' href='index.php?content=squadra&squadra=".trim($g[$i])."'>".strtoupper($g[$i])."</a>";
+        $str = "<a class='click squadra' href='index.php?content=squadra&squadra=".trim($g[$i])."'>".strtoupper($g[$i])."</a>";
         break;
       default: //ogni altro caso
         $str = $g[$i];

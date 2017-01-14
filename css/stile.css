@@ -1,5 +1,4 @@
-body {background-color: #FFF}
-
+body {background-image: url(../img/image.png);}
 
 #header {padding-left: 20px; text-align: left; height: 80px;}
 #header h1 {float: left; }
@@ -7,14 +6,14 @@ body {background-color: #FFF}
 #userBox {border: 1px solid black;width: 400px; height: 50px; margin-left: auto; position: relative; top: 10; border: 1px solid #AAA; border-radius: 5px}
 #userBox span {position: relative; top: 10; left: 20;}
 
-#menu {background: rgba(50, 50, 50, 0.3); width: 200px; float: right; border-radius: 5px; height: 180px;}
+#menu {background: rgba(150, 150, 150, 0.8); width: 200px; float: right; border-radius: 5px; height: 180px;}
 #menu span {background: rgba(242, 100, 0, 1);height:20px;padding-top:5px;text-align:center;display:block;border-top-left-radius:5px;border-top-right-radius:5px;}
 #menu ul {}
 #menu li {list-style-type: none;}
 #menu li a {text-decoration: none; color: black}
 #menu li a:hover {color: rgba(200, 100, 0, 0.8);}
 
-#teamMenu {margin-top: 30px; background: rgba(50, 50, 50, 0.3); width: 200px; float: right; border-radius: 5px; height: 180px;}
+#teamMenu {margin-top: 30px; background: rgba(150, 150, 150, 0.8); width: 200px; float: right; border-radius: 5px; height: 180px;}
 #teamMenu span {background: rgba(242, 100, 0, 1);height:20px;padding-top:5px;text-align:center;display:block;border-top-left-radius:5px;border-top-right-radius:5px;}
 #teamMenu ul {}
 #teamMenu li {list-style-type: none;}
@@ -23,9 +22,7 @@ body {background-color: #FFF}
 
 #main {width: 1000px; margin-left: auto; margin-right: auto; margin-bottom: 50px;  padding: 50px; padding-top: 0;}
 
-#main_content {background: rgba(230, 230, 230, 0.5); min-height: 400px; float: left; width: 725px; border: 1px solid #AAA; border-radius: 5px; padding: 30px; padding-top: 10px;}
-
-.content {}
+#main_content {background: rgba(250, 250, 250, 0.7); min-height: 400px; float: left; width: 725px; border: 1px solid #AAA; border-radius: 5px; padding: 30px; padding-top: 10px;}
 
 .titoloDue {color: #333;border-bottom: 1px solid #333;}
 
@@ -33,22 +30,26 @@ body {background-color: #FFF}
 #formLogin span {display: block; text-align: center; font-size: 25px; margin-bottom: 20px; margin-top: 10px; }
 .loginTextInput {margin-left: 40px; margin-bottom: 5px; text-align: center; height: 40px; width: 300px; background: rgba(200, 200, 200, 0.5); font-size: 20px;}
 .loginTextInput:hover {background: rgba(200, 200, 200, 0.3)}
-.loginSendInput {border: 1px solid #AAA; color: black; font-size: 12px; margin-left: 40px; margin-bottom: 2px; text-align: center; height: 20px; width: 300px; background: rgba(200, 200, 200, 0.7)}
+.loginSendInput {border: 1px solid #AAA; color: black; font-size: 12px; margin-left: 40px; margin-bottom: 2px; text-align: center; height: 40px; width: 300px; background: rgba(200, 200, 200, 0.7)}
 .loginSendInput a {color: black; text-decoration: none}
 .loginSendInput:hover {background: rgba(200, 200, 200, 0.5)}
-.gotoRegistrati {border: 1px solid #AAA; color: black; font-size: 12px; margin-left: 40px; margin-bottom: 2px; text-align: center; height: 20px; width: 300px; background: rgba(200, 200, 200, 0.7)}
-.gotoRegistrati a {color: black; text-decoration: none; position: relative; top: 4;  }
-.gotoRegistrati:hover {background: rgba(200, 200, 200, 0.5)}
+.gotoRegistrati {color: black; font-size: 14px; margin-left: 40px; margin-top: 10px; text-align: center; width: 300px;}
+.gotoRegistrati a {color: black; text-decoration: none;}
+.gotoRegistrati a:hover {text-decoration: underline;}
 #formLogin fieldset {border: none;}
 #formSignup fieldset {border: none;}
+
+#formSignup {border: 1px solid rgba(200, 100, 0, 1); background: #FFF; width: 400px; height: 280px; margin-left: auto; margin-right: auto; margin-top: 50px; border-radius: 5px;}
+#formSignup span {display: block; text-align: center; font-size: 25px; margin-bottom: 20px; margin-top: 10px; }
 
 .messageDiv {border: 1px solid red; width: 300px; margin-left: 40px; margin-top: 15px; text-align: center;}
 
 .tableTitle {margin-left: 10%; font-size: 2em}
-.tableGiocatori {margin-left: auto; margin-right: auto; border-collapse: collapse; width: 700px;}
-.tableGiocatori th {height: 40px;background: rgba(150, 150, 150, 0.2);font-weight: normal;color: rgba(200, 100, 0, 1); border-top: 1px solid #AAA;border-left: 1px solid #FFF;}
+.tableGiocatori {margin-left: auto; margin-right: auto; border-collapse: collapse; width: 700px; font-size: 20px;}
+.tableGiocatori tr {height: 40px;}
+.tableGiocatori th {height: 40px;background: rgba(150, 150, 150, 0.2);font-weight: normal;color: rgba(200, 100, 0, 1); border-top: 1px solid #AAA;border-left: 1px solid #FFF; font-size: 20px;}
 .tableGiocatori th:hover {background: rgba(100, 100, 100, 0.4);cursor: pointer; text-decoration: underline}
-.tableGiocatori td {border-left: 1px solid #FFF;border-right: 1px solid #FFF; text-align: center;}
+.tableGiocatori td {border-left: 1px solid #FFF;border-right: 1px solid #FFF; text-align: center; font-size: 20px;}
 .trpari {background-color: rgba(200, 100, 0, 0.4);}
 .trpari:hover {background-color: rgba(200, 100, 0, 0.6);}
 .trdispari {background-color: rgba(200, 200, 200, 0.4);}
@@ -64,3 +65,4 @@ body {background-color: #FFF}
 
 .link {color: rgba(200, 100, 0, 1); text-decoration: none;}:hover {text-decoration: underline}
 .link:hover {text-decoration: underline}
+
