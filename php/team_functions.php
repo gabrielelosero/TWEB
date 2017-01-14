@@ -213,7 +213,7 @@ function genTeamTable($result) {
 
     $table .= "<tr><td>".$username."</td>";
     $table .= "<td><a href='index.php?content=schedaTeam&teamid=$teamid'>".$teamname."</a></td></tr>";
-    
+  
   }
   return $table;
 }

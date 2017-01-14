@@ -18,22 +18,8 @@
 include_once("php/player_functions.php");
 include_once("php/auth_functions.php");
 include_once("php/team_functions.php");
-include_once("php/header.php");
 
-/*
- *
- * Includo il menu sulla sinistra
- *
- */
-include_once("php/menu.php");
 
-/* 
- *
- * Includo il div centrale
- * dentro al div centrale viene caricata la pagina
- * corrispondente alla variabile $_GET['content']
- *
- */
 include_once("php/main_content.php");
 
 ?>

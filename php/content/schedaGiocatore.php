@@ -1,4 +1,4 @@
-<h3>Scheda Giocatore</h3>
+<h2 class="titoloDue">Scheda Giocatore</h2>
 
 <?php
 $nome =  trim($_GET['nome']);

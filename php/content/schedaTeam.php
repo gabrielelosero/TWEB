@@ -1,4 +1,4 @@
-<h3>Scheda Team</h3>
+<h2 class="titoloDue">Scheda Team</h2>
 <?php
 if (session_status() == PHP_SESSION_NONE) {
   session_start();

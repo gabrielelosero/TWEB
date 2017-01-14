@@ -1,4 +1,4 @@
-<h3>TEAM</h3>
+<h2 class="titoloDue">TEAM</h2>
 
 <?php
 
@@ -9,8 +9,6 @@ if (empty($_SESSION['id'])) {
 
 if (!empty($_GET['mode'])) {
   if ($_GET['mode'] == 'list') {
-
-    echo "<h4>Lista Team</h4>";
 
     if (!empty($_SESSION['message'])) {
       echo "<p>".$_SESSION['message']."</p>";

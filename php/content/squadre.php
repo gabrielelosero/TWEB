@@ -1,6 +1,6 @@
 <?php
 if (!empty($_GET['squadra'])) {
-  echo "<h3 class='TableTitle'>".ucfirst($_GET['squadra'])."</h3>";
+  echo "<h2 class='titoloDue'>".ucfirst($_GET['squadra'])."</h2>";
 }
 ?>
 <table id="tableSquadra" class="tableGiocatori">

@@ -1,10 +1,18 @@
-<h3>TEST</h3>
+<h2 class="titoloDue">TEST</h2>
 
-<form id="formTest" action="php/player_functions.php" method="POST">
-  <fieldset>
-    <input type="text" name="playername" placeholder="Playername">
-    <input type="text" name="fun" value="autocomplete">
-    <input type="submit" value="INVIA" >
-    <br />
-  </fieldset>
-</form>
+<ul>
+  <li>Sicurezza query</li>
+  <li>Sicurezza password</li>
+  <li>Footer fatto bene</li>
+  <li>Sfondo</li>
+  <li>Classifica in base ai punti</li>
+  <li>Aggiornamento voti giocatori</li>
+  <li>Svolgimento partita</li>
+  <li>Vendere giocatori</li>
+  <li>Scegliere la formazione</li>
+  <li>Scegliere giocatori titolari</li>
+  <li>Immagine invece di compra/vendi</li>
+  <li></li>
+  <li></li>
+</ul>
+

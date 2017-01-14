@@ -5,7 +5,7 @@ if (!empty($_POST['fun'])) {
   switch ($_POST['fun']) {
 
   case 'getPlayers':
-    $a = getPlayers($_POST['ord']);
+    $a = getPlayers($_POST['ord'], $_POST['asc']);
     echo $a;
     break;
 
@@ -32,13 +32,26 @@ if (!empty($_POST['fun'])) {
   }
 }
 
-function getPlayers($ordine="", $asc=0) {
+function getPlayers($ordine="", $f=0) {
 
   require("setting.php");
+
   $query = "SELECT * FROM giocatori";
+  
   if ($ordine != "") {
     $query .= " ORDER BY ".$ordine;
   }
+
+  if (strpos($query, "ORDER") !== FALSE) {
+    if ($f == 0) {
+      $query .= " ASC";
+    }
+    else {
+      $query .= " DESC";
+    }
+  }
+
+  $query .= " LIMIT 20";
   $result = mysql_query($query, $conn) or die(mysql_error());
 
   $table = genPlayerTable($result);
@@ -123,10 +136,19 @@ function getPlayersBySquadra($squadra) {
 }
 
 function genPlayerTable($r, $list=true) {
+  $pari = TRUE;
   $table = "";
+
   while ($g = mysql_fetch_row($r)) {
-    $table .= "<tr>";
     
+    if ($pari) {
+      $table .= "<tr class='trpari'>";
+      $pari = FALSE;
+    }
+    else {
+      $table .= "<tr class='trdispari'>";
+      $pari = TRUE;
+    }
     for ($i=0; $i<count($g);$i++) {
 
       $str = "";
@@ -143,10 +165,14 @@ function genPlayerTable($r, $list=true) {
       default: //ogni altro caso
         $str = $g[$i];
       }
-      $table .= "<td>".$str."</td>";
+      if ($i == 0) {
+        $table .= "<td class='invisible'>".$str."</td>";
+      } else {
+        $table .= "<td>".$str."</td>";
+      }
     }
     if ($list)
-      $table .= "<td><a href='index.php?content=compraGiocatore&playerid=$g[0]'>COMPRA</a></td></tr>";
+      $table .= "<td><a class='click' href='index.php?content=compraGiocatore&playerid=$g[0]'>COMPRA</a></td></tr>";
   }
   return $table;
 

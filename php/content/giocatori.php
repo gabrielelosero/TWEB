@@ -1,4 +1,11 @@
-<h3 class="tableTitle">Tutti i Giocatori</h3>
+<h3 class="titoloDue">Tutti i Giocatori</h3>
+
+<div id="divSearch">
+  Cerca un giocatore: 
+  <input id="searchPlayer">
+  <table id='tableSearchPlayer' class='invisible allPlayers'></table>
+  <br /><br />
+</div>
 
 <table id="allPlayers" class="tableGiocatori" />
   <tr>  

@@ -1,3 +1,13 @@
+var flag = 1;
+
+function toggleFlag() {
+  if (flag == 0)
+    flag = 1;
+  else
+    flag = 0;
+  return flag;
+}
+
 $(document).ready(function() {
   initialise();
   
@@ -7,6 +17,10 @@ $(document).ready(function() {
     player_input.keyup(function() {
       count ++;
       if (count > 2) {
+
+        if ($("#allPlayers").length) {
+          $("#allPlayers").addClass("invisible");
+        }
         
         playerlist = "";
         $.ajax({
@@ -17,8 +31,22 @@ $(document).ready(function() {
 
             playerlist = JSON.parse(jsondata);
             if ($('#tableSearchPlayer').length) {
-              $('#tableSearchPlayer tr').remove()
+              $('#tableSearchPlayer tr').remove();
+              tableth = "<tr>";
+              tableth += '<th id="playerName" onclick="ordinaGiocatoriPer(\'nome\')" ordine="asc">Nome</td>';
+              tableth += '<th onclick="ordinaGiocatoriPer(\'ruolo\')">Ruolo</th>';
+              tableth += '<th onclick="ordinaGiocatoriPer(\'valore\')">Valore</th>';
+              tableth += '<th onclick="ordinaGiocatoriPer(\'squadra\')">Squadra</th>';
+              tableth += '<th onclick="ordinaGiocatoriPer(\'presenze\')">Pres</th>';
+              tableth += '<th onclick="ordinaGiocatoriPer(\'goal\')">Goal</th>';
+              tableth += '<th onclick="ordinaGiocatoriPer(\'ammonizioni\')">Amm</th>';
+              tableth += '<th onclick="ordinaGiocatoriPer(\'espulsioni\')">Esp</th>';
+              tableth += '<th onclick="ordinaGiocatoriPer(\'media\')">Media</th>';
+              tableth += '<th onclick="ordinaGiocatoriPer(\'fantamedia\')">FantaMedia</th>';
+              tableth += '</tr>';
+              $('#tableSearchPlayer').append(tableth);
               $('#tableSearchPlayer').append(playerlist);
+              $('#tableSearchPlayer').addClass("tableGiocatori");
               $('#tableSearchPlayer').css('display', 'block');
               $('#tableSearchPlayer').find('a').removeAttr("href");
               $('#tableSearchPlayer tr').addClass("selectPlayer");
@@ -31,23 +59,29 @@ $(document).ready(function() {
     });
   }
 
+  // appende alla fine di ogni riga il tasto vendi
+  // TODO non funziona
   if ($('#tableGiocatoriSchedaTeam').length) {
     table = $('#tableGiocatoriSchedaTeam');
     tr = table.find('tr');
     tr.each(function(key, value) {
-      id = $(this).find("td:first").text();
+      /*id = $(this).find("td:first").text();
       a = document.createElement("a");
       a.setAttribute("onclick", "vendiGiocatore(" + id + ")");
       text = document.createTextNode("test");
       td = document.createElement("td");
       a.append(text);
       td.append(a);
-      value.append(td);
-
+      value.append(td);*/
     });
   }
 
-  
+  // setta l'altezza del menu in modo che sia uguale a quella del div centrale
+  /*if ($("#main_content").length && $("#menu").length) {
+    mainHeight = $("#main_content").css("height");
+    $("#menu").css("height", mainHeight);
+  }*/
+
 });
 
 function initialise() {
@@ -73,12 +107,12 @@ function vendiGiocatore(id_giocatore) {
 
 function ordinaGiocatoriPer(ord) {
 
-  alert($(this).find("#playerName").val())
+  flag = toggleFlag();
 
   $.ajax({
     method: "POST",
     url: "php/player_functions.php",
-    data: {fun:"getPlayers", ord:ord},
+    data: {fun:"getPlayers", ord:ord, asc:flag},
     success: function(data) {
       table = $("#allPlayers");
       trs = table.find("tr");
