@@ -15,10 +15,27 @@ $(document).ready(function() {
     td = $(".tableGiocatori").find(".squadra");
     td.each(function(a, i) {
       squadra = this.text.trim().toLowerCase();
+      this.text =  " ASD "
       $(this).css('background-image', 'url(img/squadre/' + squadra + '.png)');
       $(this).css('background-repeat', 'no-repeat');
       $(this).css('background-position', 'center');
       $(this).css('background-size', '30px 30px');
+      $(this).css('font-size', '30px');
+      $(this).css('color', 'rgba(1, 1, 1, 0)');
+    });
+
+  }
+
+  if ($("#tableGiocatoriSchedaTeam").length) {
+    td = $("#tableGiocatoriSchedaTeam").find(".squadra");
+    td.each(function(a, i) {
+      squadra = this.text.trim().toLowerCase();
+      this.text =  " ASD "
+      $(this).css('background-image', 'url(img/squadre/' + squadra + '.png)');
+      $(this).css('background-repeat', 'no-repeat');
+      $(this).css('background-position', 'center');
+      $(this).css('background-size', '30px 30px');
+      $(this).css('font-size', '30px');
       $(this).css('color', 'rgba(1, 1, 1, 0)');
     });
 
@@ -73,19 +90,16 @@ $(document).ready(function() {
   }
 
   // appende alla fine di ogni riga il tasto vendi
-  // TODO non funziona
   if ($('#tableGiocatoriSchedaTeam').length) {
     table = $('#tableGiocatoriSchedaTeam');
     tr = table.find('tr');
     tr.each(function(key, value) {
-      /*id = $(this).find("td:first").text();
-      a = document.createElement("a");
-      a.setAttribute("onclick", "vendiGiocatore(" + id + ")");
-      text = document.createTextNode("test");
-      td = document.createElement("td");
-      a.append(text);
-      td.append(a);
-      value.append(td);*/
+      if (key == 0) {
+        console.log();
+      } else {
+        id = $(this).find("td:first").text();
+        $(this).append("<td><a onclick='vendiGiocatore(" + id + ")'>VENDI</a></td>");
+      }
     });
   }
 

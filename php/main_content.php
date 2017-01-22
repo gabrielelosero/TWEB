@@ -1,7 +1,7 @@
 <div id="main" class="stdHeight">
 <?php
 include_once("php/header.php");
-include_once("php/menu.php");
+// include_once("php/menu.php");
 echo "<div id='main_content'>";
 if (empty($_GET['content'])) {
   include_once("php/content/homepage.php");

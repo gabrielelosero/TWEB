@@ -19,6 +19,7 @@ if (!empty($_GET['teamid'])) {
   echo "<td>$cash</td></tr></table>";
   echo "<br />";
   echo "<table id='tableGiocatoriSchedaTeam'>";
+  echo "<tr><th>Nome</th><th>Ruolo</th><th>Squadra</th><th>Valore</th><th>Presenze</th><th>Goal</th><th>Ammonizioni</th><th>Espulsioni</th><th>Media</th><th>FantaMedia</th><th>Vendi</th></tr>";
   echo $players;
   echo "</table>";
   echo "<br /><br />";

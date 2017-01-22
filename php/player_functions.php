@@ -172,7 +172,7 @@ function genPlayerTable($r, $list=true) {
       }
     }
     if ($list)
-      $table .= "<td><a class='click' href='index.php?content=compraGiocatore&playerid=$g[0]'>COMPRA</a></td></tr>";
+      $table .= "<td><a class='click' href='index.php?content=compraGiocatore&playerid=$g[0]'>C</a></td></tr>";
   }
   return $table;
 

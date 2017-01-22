@@ -1,7 +1,9 @@
 <div id="header">
   <h1><a href="index.php">Fantacalcio TWEB</a></h1>
+
 <?php
 
+include_once("php/menu.php");
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
   if (!empty($_SESSION['id'])) {
