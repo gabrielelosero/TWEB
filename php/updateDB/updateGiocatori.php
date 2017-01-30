@@ -1,6 +1,5 @@
 <?php
 
-
 function inserisciNuoviGiocatori() {
   
   include("../setting.php");

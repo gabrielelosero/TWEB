@@ -150,6 +150,18 @@ function getPlayersBySquadra($squadra) {
 
 }
 
+function getVotiGiocatoriByIds($ids) {
+
+  require("setting.php");
+  $ids_array = join("','", $ids);
+  $query = "SELECT * FROM voti_giocatori WHERE id IN ('$ids')";
+  $result = mysql_query($query, $conn) or die(mysql_error());
+
+  while ($r = mysql_fetch_row($result)) {
+    echo $r[0];
+  }
+}
+
 function genPlayerTable($r, $list=true) {
   $pari = TRUE;
   $table = "";

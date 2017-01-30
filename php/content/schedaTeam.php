@@ -22,7 +22,7 @@ if (!empty($_GET['teamid'])) {
   echo "<td>$cash</td></tr></table>";
   echo "<br />";
   echo "<table id='tableGiocatoriSchedaTeam'>";
-  echo "<tr><th>Nome</th><th>Ruolo</th><th>Squadra</th><th>Valore</th><th>Presenze</th><th>Goal</th><th>Ammonizioni</th><th>Espulsioni</th><th>Media</th><th>FantaMedia</th><th>Vendi</th></tr>";
+  echo "<tr><th>Nome</th><th>Ruolo</th><th>Valore</th><th>Squadra</th><th>Presenze</th><th>Goal</th><th>Ammonizioni</th><th>Espulsioni</th><th>Media</th><th>FantaMedia</th><th>Vendi</th></tr>";
   echo $players;
   echo "</table>";
   echo "<br /><br />";
@@ -31,10 +31,13 @@ if (!empty($_GET['teamid'])) {
 
   echo "<div id='votiTeam' class='invisible'>";
   $giocatori = getPlayersIdByTeam($team[0]);
-  $giocatori = getPlayersByIds($giocatori);
-  echo "<table>";
+  //$giocatori = getPlayersByIds($giocatori);
+  $giocatori = getVotiGiocatoriByIds($giocatori);
+  var_dump($giocatori);
+  /*echo "<table class='tableGiocatori'>";
+  echo "<tr><th>Nome</th><th>Ruolo</th><th>Valore</th><th>Squadra</th><th>Presenze</th><th>Goal</th><th>Ammonizioni</th><th>Espulsioni</th><th>Media</th><th>FantaMedia</th><th>Vendi</th></tr>";
   echo $giocatori;
-  echo "</table>";
+  echo "</table>";*/
   echo "</div>";
 
   if (!empty($_SESSION['message'])) {
