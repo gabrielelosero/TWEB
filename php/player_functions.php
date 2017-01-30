@@ -32,7 +32,7 @@ if (!empty($_POST['fun'])) {
   }
 }
 
-function getPlayers($ordine="", $f=0) {
+function getPlayers($ordine="", $f=0, $range=0) {
 
   require("setting.php");
 
@@ -52,11 +52,11 @@ function getPlayers($ordine="", $f=0) {
   }
 
   $query .= " LIMIT 20";
+    
   $result = mysql_query($query, $conn) or die(mysql_error());
 
   $table = genPlayerTable($result);
   return $table;
-  
 }
 
 function getPlayerById($id) {
@@ -92,6 +92,21 @@ function getPlayerByName($nome) {
   $result = mysql_query($query, $conn) or die(mysql_error());
 
   return $result;
+}
+
+function getPlayersIdByTeam($id_team) {
+  
+  require("setting.php");
+  
+  $query = "SELECT id_giocatore FROM giocatori_team WHERE id_team = ".$id_team.";";
+  $result = mysql_query($query, $conn) or die(mysql_error());
+  
+  $players = Array();
+  while ($r = mysql_fetch_row($result)) {
+    array_push($players, $r[0]);
+  }
+  return $players;
+
 }
 
 function getPlayersByTeam($id_team) {

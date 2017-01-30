@@ -2,7 +2,9 @@
 
 <?php
 
-session_start();
+if (session_status() == PHP_SESSION_NONE)
+  session_start();
+
 if (empty($_SESSION['id'])) {
   header('Location: index.php?content=login&messaggio=needLogin');
 }

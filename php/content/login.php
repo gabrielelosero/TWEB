@@ -10,7 +10,9 @@
     <div class="gotoRegistrati"><a href="index.php?content=signup">Clicca qua per registrarti.</a></div>
   
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE)
+  session_start();
+
 if (!empty($_SESSION['username'])) {
   echo "<div class='messageDiv'>";
   echo $_SESSION['username']." ha effettuato il logout.";

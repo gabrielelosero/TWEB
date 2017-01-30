@@ -75,7 +75,7 @@ body {background-image: url(../img/image.png);}
 #tableGiocatoriSchedaTeam th:hover {background: rgba(100, 100, 100, 0.4);cursor: pointer; text-decoration: underline}
 #tableGiocatoriSchedaTeam td {border-left: 1px solid #FFF;border-right: 1px solid #FFF; text-align: center; font-size: 14px;}
 
-#footer {display: block; float: none;margin-left: auto; margin-right: auto; margin-top: 15px; width: 1000px;}
+#footer {display: none;height: 40px; width: 860px; margin-left: auto; margin-right: auto;background-color: rgba(200, 100, 0, 0.8); margin-top: 500px;}
 
 .click {color: black; text-decoration: none;}
 .click:hover {text-decoration: underline; cursor: pointer; color: rgba(200, 100, 0, 1);}

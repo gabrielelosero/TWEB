@@ -10,7 +10,9 @@ function toggleFlag() {
 
 $(document).ready(function() {
   initialise();
+ 
   
+
   if ($(".tableGiocatori").length) {
     td = $(".tableGiocatori").find(".squadra");
     td.each(function(a, i) {
@@ -27,6 +29,7 @@ $(document).ready(function() {
   }
 
   if ($("#tableGiocatoriSchedaTeam").length) {
+    
     td = $("#tableGiocatoriSchedaTeam").find(".squadra");
     td.each(function(a, i) {
       squadra = this.text.trim().toLowerCase();
@@ -37,6 +40,20 @@ $(document).ready(function() {
       $(this).css('background-size', '30px 30px');
       $(this).css('font-size', '30px');
       $(this).css('color', 'rgba(1, 1, 1, 0)');
+    });
+
+    $("#switchSchedaTeam").click(function() {
+      
+      if ($('#votiTeam').hasClass('invisible')) {
+        $('#votiTeam').removeClass('invisible');
+        $('#teamPlayers').addClass('invisible');
+        $(this).text("Formazione");
+      } else {
+        $('#teamPlayers').removeClass('invisible');
+        $('#votiTeam').addClass('invisible');
+        $(this).text("Voti Ultima Giornata");
+      }
+      
     });
 
   }
@@ -114,8 +131,8 @@ $(document).ready(function() {
 function initialise() {
   $('#tableSearchPlayer tr').click(function() {
     nome = $(this).find('a:first').text().trim();
-    $('#playerinput').val(nome)
-    console.log(nome);
+    $('#playerinput').val(nome);
+
   });
 
 }

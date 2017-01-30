@@ -12,7 +12,8 @@
   </fieldset>
 </form>
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE)
+  session_start();
 
 if (!empty($_SESSION['messaggio'])) {
   echo $_SESSION['messaggio'];

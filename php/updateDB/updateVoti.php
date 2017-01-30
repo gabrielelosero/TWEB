@@ -81,8 +81,7 @@ function inserisciNuoviVoti() {
 
 function eliminaVecchiVoti() {
   
-  // connessione al DB
-  $conn = connectDB();
+  include("../setting.php");
 
   // elimino i vecchi voti 
   $delete_old = "DELETE FROM voti_giocatori";
