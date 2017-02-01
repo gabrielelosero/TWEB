@@ -52,7 +52,11 @@ function inserisciNuoviVoti() {
           
             $query_nome = mysql_query("SELECT id FROM giocatori WHERE nome LIKE '%".$nome->textContent."%'", $conn) or die(mysql_error());
             $result = mysql_fetch_row($query_nome);
-            $s .= "(".$result[0].",";
+            if ($result != 0) {
+              $s .= "(".$result[0].",";
+            } else {
+              break;
+            }
           }
       
           $nDOM = new DOMDocument('1.0', 'utf-8');
