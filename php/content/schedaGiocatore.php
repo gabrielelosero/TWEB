@@ -1,5 +1,3 @@
-<h2 class="titoloDue">Scheda Giocatore</h2>
-
 <?php
 $nome =  trim($_GET['nome']);
 $spec = getPlayerByName($nome);
@@ -7,45 +5,32 @@ $spec = getPlayerByName($nome);
 $s = mysql_fetch_row($spec);
 ?>
 
-<table>
-  <tr>
-    <td>Nome:</td>
+  <h2 class="titoloDue">SchedaGiocatore:<br /><?php echo $nome;?></h2>
+
+  <h1></h1>
+<table class="tableSchedaGiocatore">
+  <tr><th>Nome</th><th>Ruolo</th><th>Valore</th><th>Squadra</th></tr>
+  <tr class="trpari">
     <td><?php echo $s[1];?></td>
-  </tr>
-  <tr>
-    <td>Ruolo:</td>
     <td><?php echo $s[2];?></td>
-  </tr>
-  <tr>
-    <td>Valore:</td>
     <td><?php echo $s[3];?></td>
-  </tr>
-  <tr>
-    <td>Squadra:</td>
     <td><?php echo $s[4];?></td>
   </tr>
-  <tr>
-    <td>Presenze:</td>
+</table>
+<table class="tableSchedaGiocatore">
+  <tr><th>Presenze</th><th>Goal</th><th>Ammonizioni</th><th>Espulsioni</th></tr>
+  <tr class="trpari">
     <td><?php echo $s[5];?></td>
-  </tr>
-  <tr>
-    <td>Goal:</td>
     <td><?php echo $s[6];?></td>
-  </tr>
-  <tr>
-    <td>Ammonizioni:</td>
     <td><?php echo $s[7];?></td>
-  </tr>
-  <tr>
-    <td>Espulsioni:</td>
     <td><?php echo $s[8];?></td>
   </tr>
-  <tr>
-    <td>Media:</td>
-    <td><?php echo $s[9];?></td>
-  </tr>
-  <tr>
-    <td>Fanta Media:</td>
-    <td><?php echo $s[10];?></td>
+</table>
+
+<table class="tableSchedaGiocatore2">
+  <tr><th colspan="2">Media</th><th colspan="2">Fanta Media</th></tr>
+  <tr class="trdispari">
+    <td colspan="2"><?php echo $s[9];?></td>
+    <td colspan="2"><?php echo $s[10];?></td>
   </tr>
 </table>

@@ -58,54 +58,6 @@ $(document).ready(function() {
 
   }
 
-  if ($("#divSearch").length) {
-    count = 0;
-    player_input = $("#searchPlayer");
-    player_input.keyup(function() {
-      count ++;
-      if (count > 2) {
-
-        if ($("#allPlayers").length) {
-          $("#allPlayers").addClass("invisible");
-        }
-        
-        playerlist = "";
-        $.ajax({
-          method: "POST",
-          url: "php/player_functions.php",
-          data: {fun:'autocomplete',playername:player_input.val()},
-          success: function(jsondata) {
-
-            playerlist = JSON.parse(jsondata);
-            if ($('#tableSearchPlayer').length) {
-              $('#tableSearchPlayer tr').remove();
-              tableth = "<tr>";
-              tableth += '<th id="playerName" onclick="ordinaGiocatoriPer(\'nome\')" ordine="asc">Nome</td>';
-              tableth += '<th onclick="ordinaGiocatoriPer(\'ruolo\')">Ruolo</th>';
-              tableth += '<th onclick="ordinaGiocatoriPer(\'valore\')">Valore</th>';
-              tableth += '<th onclick="ordinaGiocatoriPer(\'squadra\')">Squadra</th>';
-              tableth += '<th onclick="ordinaGiocatoriPer(\'presenze\')">Pres</th>';
-              tableth += '<th onclick="ordinaGiocatoriPer(\'goal\')">Goal</th>';
-              tableth += '<th onclick="ordinaGiocatoriPer(\'ammonizioni\')">Amm</th>';
-              tableth += '<th onclick="ordinaGiocatoriPer(\'espulsioni\')">Esp</th>';
-              tableth += '<th onclick="ordinaGiocatoriPer(\'media\')">Media</th>';
-              tableth += '<th onclick="ordinaGiocatoriPer(\'fantamedia\')">FantaMedia</th>';
-              tableth += '</tr>';
-              $('#tableSearchPlayer').append(tableth);
-              $('#tableSearchPlayer').append(playerlist);
-              $('#tableSearchPlayer').addClass("tableGiocatori");
-              $('#tableSearchPlayer').css('display', 'block');
-              $('#tableSearchPlayer').find('a').removeAttr("href");
-              $('#tableSearchPlayer tr').addClass("selectPlayer");
-              initialise();
-            }
-          }
-        });
-
-      }
-    });
-  }
-
   // appende alla fine di ogni riga il tasto vendi
   if ($('#tableGiocatoriSchedaTeam').length) {
     table = $('#tableGiocatoriSchedaTeam');
@@ -120,21 +72,30 @@ $(document).ready(function() {
     });
   }
 
-  // setta l'altezza del menu in modo che sia uguale a quella del div centrale
-  /*if ($("#main_content").length && $("#menu").length) {
-    mainHeight = $("#main_content").css("height");
-    $("#menu").css("height", mainHeight);
-  }*/
-
 });
 
 function initialise() {
   $('#tableSearchPlayer tr').click(function() {
     nome = $(this).find('a:first').text().trim();
     $('#playerinput').val(nome);
-
   });
 
+}
+
+function setIcons() {
+  if ($(".tableGiocatori").length) {
+    td = $(".tableGiocatori").find(".squadra");
+    td.each(function(a, i) {
+      squadra = this.text.trim().toLowerCase();
+      this.text =  " ASD "
+      $(this).css('background-image', 'url(img/squadre/' + squadra + '.png)');
+      $(this).css('background-repeat', 'no-repeat');
+      $(this).css('background-position', 'center');
+      $(this).css('background-size', '30px 30px');
+      $(this).css('font-size', '30px');
+      $(this).css('color', 'rgba(1, 1, 1, 0)');
+    });
+  }
 }
 
 function vendiGiocatore(id_giocatore) {
@@ -167,4 +128,119 @@ function ordinaGiocatoriPer(ord) {
       table.append(data);
     }
   });
+}
+
+function reloadPlayerTable(num) {
+
+  if ($("#allPlayers").length) {
+    
+    $.ajax({
+      method: "POST",
+      url: "php/player_functions.php",
+      data: {fun:"getPlayers", ord:"", asc:"1",  range:num*20},
+      success: function(data) {
+        table = $("#allPlayers");
+        trs = table.find("tr");
+
+        for (i=1; i<trs.length; i++) {
+          trs[i].remove();
+        }
+        table.append(data); 
+        setIcons();
+        console.log(data);
+      }
+    });
+  }
+}
+
+function switchSearchMode(mode) {
+  if ($('#searchHeader').length) {
+    
+    $('#cercaPerNome').removeClass("invisible");
+    $('#cercaPerRuolo').removeClass("invisible");
+    $('#cercaPerSquadra').removeClass("invisible");
+
+    $('.searchByNome').removeClass("divSearchSelected");
+    $('.searchByRuolo').removeClass("divSearchSelected");
+    $('.searchBySquadra').removeClass("divSearchSelected");
+
+    $('#cercaPerNome').removeClass("searchSelected");
+    $('#cercaPerRuolo').removeClass("searchSelected");
+    $('#cercaPerSquadra').removeClass("searchSelected");
+
+    if (mode == 'nome') {
+      $('.searchByNome').addClass("divSearchSelected");
+      $('#cercaPerNome').addClass("searchSelected");
+      $('#cercaPerRuolo').addClass("invisible");
+      $('#cercaPerSquadra').addClass("invisible");
+    }
+    if (mode == 'ruolo') {
+      $('.searchByRuolo').addClass("divSearchSelected");
+      $('#cercaPerRuolo').addClass("searchSelected");
+      $('#cercaPerNome').addClass("invisible");
+      $('#cercaPerSquadra').addClass("invisible");
+    }
+    if (mode == 'squadra') {
+      $('.searchBySquadra').addClass("divSearchSelected");
+      $('#cercaPerSquadra').addClass("searchSelected");
+      $('#cercaPerRuolo').addClass("invisible");
+      $('#cercaPerNome').addClass("invisible");
+    }
+    
+  } 
+}
+
+function cercaGiocatori() {
+  
+  if ($('.scrollTable').length) {
+    $('.scrollTable').addClass("invisible");
+  }
+  if ($("#divSearch").length) {
+  
+    if ($("#cercaPerNome").hasClass("searchSelected")) {
+      n = $("#searchPlayer").val();
+      $.ajax({
+        method: "POST",
+        url: "php/player_functions.php",
+        data: {fun:"searchPlayerByName", nome:n},
+        success: function(data) {
+          appendResultToTable(data);
+        }
+      });
+    }
+    if ($("#cercaPerRuolo").hasClass("searchSelected")) {
+      n = $("#searchRuolo").val();
+      $.ajax({
+        method: "POST",
+        url: "php/player_functions.php",
+        data: {fun:"searchPlayerByRuolo", ruolo:n},
+        success: function(data) {
+          appendResultToTable(data);
+        }
+      });
+    }
+    if ($("#cercaPerSquadra").hasClass("searchSelected")) {
+      n = $("#searchSquadra").val();
+      $.ajax({
+        method: "POST",
+        url: "php/player_functions.php",
+        data: {fun:"searchPlayerBySquadra", squadra:n},
+        success: function(data) {
+          appendResultToTable(data);
+        }
+      });
+    }
+  }
+}
+
+function appendResultToTable(data) {
+
+  if ($(".tableGiocatori").length) {
+    th = $(".tableGiocatori tr:first");
+    $(".tableGiocatori tr").remove();
+    $(".tableGiocatori").append(th);
+    $(".tableGiocatori").append(data);
+    setIcons();
+
+  }
 }

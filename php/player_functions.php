@@ -1,12 +1,34 @@
 <?php
 
+// chimatate tramite $_POST
 if (!empty($_POST['fun'])) {
 
   switch ($_POST['fun']) {
 
   case 'getPlayers':
-    $a = getPlayers($_POST['ord'], $_POST['asc']);
+    $a = getPlayers($_POST['ord'], $_POST['asc'], $_POST['range']);
     echo $a;
+    break;
+
+  case 'searchPlayerByName':
+    $a = getPlayerByName($_POST['nome']);
+    $columns = ['ruolo', 'valore', 'presenze', 'goal', 'ammonizioni', 'espulsioni', 'media', 'fantamedia', 'compra'];
+    $r = genPlayerTable2($a, $columns);
+    echo $r;
+    break;
+
+  case 'searchPlayerByRuolo':
+    $a = getPlayerByRuolo($_POST['ruolo']);
+    $columns = ['ruolo', 'valore', 'presenze', 'goal', 'ammonizioni', 'espulsioni', 'media', 'fantamedia', 'compra'];
+    $r = genPlayerTable2($a, $columns);
+    echo $r;
+    break;
+
+  case 'searchPlayerBySquadra':
+    $a = getPlayerBySquadra($_POST['squadra']);
+    $columns = ['ruolo', 'valore', 'presenze', 'goal', 'ammonizioni', 'espulsioni', 'media', 'fantamedia', 'compra'];
+    $r = genPlayerTable2($a, $columns);
+    echo $r;
     break;
 
   case 'autocomplete':
@@ -32,6 +54,109 @@ if (!empty($_POST['fun'])) {
   }
 }
 
+function genScrollPlayerTable() {
+
+  require("setting.php");
+  $query = "SELECT id FROM giocatori";
+  $result = mysql_query($query, $conn) or die(mysql_error());
+  $num = mysql_num_rows($result);
+  $num_pages = round($num / 20);
+  $str = "";
+  for ($i=1; $i<$num_pages; $i++) {
+    $str .= "<a onclick='reloadPlayerTable($i)'>".$i."</a> ";
+  } 
+  return $str;
+}
+
+function genPlayerTable2($r, $columns) {
+
+  $pari = TRUE;
+  $table = "";
+
+  while ($g = mysql_fetch_row($r)) {
+
+    // class pari o dispari per css
+    if ($pari) {
+      $table .= "<tr class='trpari'>";
+      $pari = FALSE;
+    }
+    else {
+      $table .= "<tr class='trdispari'>";
+      $pari = TRUE;
+    }
+
+    $str_id = "<span class='invisible'>".$g[0]."</span>";
+    $str_nome = "<a class='click' href='index.php?content=schedaGiocatore&nome=".trim($g[1])."'>".$g[1]."</a>";
+    $str_squadra = "<a class='click squadra' href='index.php?content=squadra&squadra=".trim($g[4])."'>".strtoupper($g[4])."</a>";
+    
+    $table .= "<td class='invisible'>".$str_id."</td>";
+    $table .= "<td>".$str_nome."</td>";
+    $table .= "<td>".$str_squadra."</td>";
+    // contenuto di ogni riga
+    for ($i=0; $i<count($g);$i++) {
+      
+      $str = "";
+
+      switch ($i) {
+      case 2: 
+        if (in_array('ruolo', $columns)) {
+          $str = "<span>".$g[$i]."</span>";
+          $table .= "<td>".$str."</td>";
+        }
+        break;
+      case 3:
+        if (in_array('valore', $columns)) {
+          $str = "<span>".$g[$i]."</span>";
+          $table .= "<td>".$str."</td>";
+        }
+        break;
+      case 5:
+        if (in_array('presenze', $columns)) {
+          $str = "<span>".$g[$i]."</span>";
+          $table .= "<td>".$str."</td>";
+        }
+        break;
+      case 6:
+        if (in_array('goal', $columns)) {
+          $str = "<span>".$g[$i]."</span>";
+          $table .= "<td>".$str."</td>";
+        }
+        break;
+      case 7:
+        if (in_array('ammonizioni', $columns)) {
+          $str = "<span>".$g[$i]."</span>";
+          $table .= "<td>".$str."</td>";
+        }
+        break;
+      case 8:
+        if (in_array('espulsioni', $columns)) {
+          $str = "<span>".$g[$i]."</span>";
+          $table .= "<td>".$str."</td>";
+        }
+        break;
+      case 9:
+        if (in_array('media', $columns)) {
+          $str = "<span>".$g[$i]."</span>";
+          $table .= "<td>".$str."</td>";
+        }
+        break;
+      case 10:
+        if (in_array('fantamedia', $columns)) {
+          $str = "<span>".$g[$i]."</span>";
+          $table .= "<td>".$str."</td>";
+        }
+        break;
+      }
+    }
+    if (in_array('compra', $columns))
+      $table .= "<td><a class='click' href='index.php?content=compraGiocatore&playerid=$g[0]'>C</a></td></tr>";
+  }
+  return $table;
+
+}
+
+// FUNZIONI VECCHIE; tenute per compatibilità
+
 function getPlayers($ordine="", $f=0, $range=0) {
 
   require("setting.php");
@@ -51,11 +176,17 @@ function getPlayers($ordine="", $f=0, $range=0) {
     }
   }
 
-  $query .= " LIMIT 20";
-    
+  if ($range == 0)
+    $query .= " LIMIT 20";
+  else {
+    $query .= " LIMIT 21 OFFSET $range"; //.$range.", ".$range + 20;
+    echo $query;
+  }
+
   $result = mysql_query($query, $conn) or die(mysql_error());
 
-  $table = genPlayerTable($result);
+  $columns = ['ruolo', 'valore', 'presenze', 'goal', 'ammonizioni', 'espulsioni', 'media', 'fantamedia', 'compra'];
+  $table = genPlayerTable2($result, $columns);
   return $table;
 }
 
@@ -89,6 +220,24 @@ function getPlayerByName($nome) {
 
   require("setting.php");
   $query = "SELECT * FROM giocatori WHERE nome LIKE '%".$nome."%'";
+  $result = mysql_query($query, $conn) or die(mysql_error());
+
+  return $result;
+}
+
+function getPlayerByRuolo($ruolo) {
+
+  require("setting.php");
+  $query = "SELECT * FROM giocatori WHERE ruolo LIKE '%".$ruolo."%'";
+  $result = mysql_query($query, $conn) or die(mysql_error());
+
+  return $result;
+}
+
+function getPlayerBySquadra($squadra) {
+
+  require("setting.php");
+  $query = "SELECT * FROM giocatori WHERE squadra LIKE '%".$squadra."%'";
   $result = mysql_query($query, $conn) or die(mysql_error());
 
   return $result;

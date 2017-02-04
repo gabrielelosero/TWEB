@@ -12,9 +12,9 @@ if (session_status() == PHP_SESSION_NONE) {
   <li class="flyout">
     <a href="index.php?content=giocatori">Tutti i Giocatori</a>
     <ul class="flyout-content nav stacked flyout-background">
-      <li><a href="#">Cerca per Nome</a></li>
-      <li><a href="#">Cerca per Ruolo</a></li>
-      <li><a href="#">Cerca per Squadra</a></li>
+      <li><a href="index.php?content=giocatori&mode=nome">Cerca per Nome</a></li>
+      <li><a href="index.php?content=giocatori&mode=ruolo">Cerca per Ruolo</a></li>
+      <li><a href="index.php?content=giocatori&mode=squadra">Cerca per Squadra</a></li>
     </ul>
 
   <!-- TEAM -->
@@ -40,6 +40,15 @@ if (!empty($_SESSION['id'])) {
   echo "<a href=''>".$_SESSION['username']."</a>";
   echo "<ul class='flyout-content nav stacked flyout-background'>";
   echo "<li><a href='php/auth_functions.php?fun=logout'>Log Out</a></li></ul>";
+}
+if (!empty($_SESSION['teamid'])) {
+  echo "<li class='flyout'>";
+  $teamname = getTeamById($_SESSION['teamid']);
+  echo "<a href=''>".$teamname[1]."</a>";
+  echo "<ul class='flyout-content nav stacked flyout-background'>";
+  $teams = getAllUserTeam($_SESSION['id']);
+  foreach ($teams as $t) 
+    echo "<li><a href='index.php?content=schedaTeam&teamid=$t[0]'>".$t[1]."</a></li>";
 }
 ?>
 

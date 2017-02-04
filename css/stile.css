@@ -75,6 +75,29 @@ body {background-image: url(../img/image.png);}
 #tableGiocatoriSchedaTeam th:hover {background: rgba(100, 100, 100, 0.4);cursor: pointer; text-decoration: underline}
 #tableGiocatoriSchedaTeam td {border-left: 1px solid #FFF;border-right: 1px solid #FFF; text-align: center; font-size: 14px;}
 
+.tableSchedaGiocatore {table-layout: fixed; margin-left: auto; margin-right: auto; border-collapse: collapse; width: 600px; font-size: 15px; margin-bottom: 40px;}
+.tableSchedaGiocatore tr {height: 40px;}
+.tableSchedaGiocatore th {height: 40px;background: rgba(150, 150, 150, 0.2);font-weight: bold;color: rgba(200, 100, 0, 1); border-top: 1px solid #AAA;border-left: 1px solid #FFF; font-size: 15px;}
+.tableSchedaGiocatore td {border-left: 1px solid #FFF;border-right: 1px solid #FFF; text-align: center; font-size: 19px;}
+
+.tableSchedaGiocatore2 {table-layout: fixed; margin-left: auto; margin-right: auto; border-collapse: collapse; width: 600px; font-size: 15px; margin-bottom: 40px;}
+.tableSchedaGiocatore2 tr {height: 40px;}
+.tableSchedaGiocatore2 th {height: 80px;background: rgba(150, 150, 150, 0.2);font-weight: bold;color: rgba(200, 100, 0, 1); border-top: 1px solid #AAA;border-left: 1px solid #FFF; font-size: 15px;}
+.tableSchedaGiocatore2 td {height: 100px;border-left: 1px solid #FFF;border-right: 1px solid #FFF; text-align: center; font-size: 41px;}
+
+#divSearch table{margin-left: auto; margin-right: auto; background: rgba(200, 100, 0, 0.8); width: 600px; border-collapse: collapse; margin-bottom: 40px}
+#divSearch table th {height: 40px; cursor: pointer}
+#divSearch table td {height: 30px; text-align: center;}
+#divSearch table td span {font-size: 18px; text-align: center}
+.searchSelected {background: rgba(256, 255, 255, 0.8); height: 50px;}
+.divSearchSelected {background: rgba(255, 255, 255, 0.8); text-decoration: underline}
+.searchInput {width: 80%;}
+#searchCerca {height: 10px;background: rgba(255, 255, 255, 0.8);}
+#searchCerca button{width: 87%;}
+
+.scrollTable {color: blue; margin-top: 30px; width: 100%; text-align: center; cursor: pointer;}
+.scrollTable a:hover {text-decoration: underline}
+
 #footer {display: none;height: 40px; width: 860px; margin-left: auto; margin-right: auto;background-color: rgba(200, 100, 0, 0.8); margin-top: 500px;}
 
 .click {color: black; text-decoration: none;}
