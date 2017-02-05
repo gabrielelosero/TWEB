@@ -31,20 +31,20 @@ if (!empty($_SESSION['id'])) {
 ?>
     </ul>
 
-  <li><a href="index.php?content=compraGiocatore">Mercato</a>
+  <li><a href="index.php?content=classifica">Classifica</a>
   
-  <li><a href="index.php?content=test">Test</a>
+  <li><a href="index.php?content=test">Test</a></li>
 <?php
 if (!empty($_SESSION['id'])) {
-  echo "<li class='flyout'>";
-  echo "<a href=''>".$_SESSION['username']."</a>";
+  echo "<li class='flyout ontheright'>";
+  echo "<a href=''>Utente: " .$_SESSION['username']."</a>";
   echo "<ul class='flyout-content nav stacked flyout-background'>";
   echo "<li><a href='php/auth_functions.php?fun=logout'>Log Out</a></li></ul>";
 }
 if (!empty($_SESSION['teamid'])) {
   echo "<li class='flyout'>";
   $teamname = getTeamById($_SESSION['teamid']);
-  echo "<a href=''>".$teamname[1]."</a>";
+  echo "<a href='index.php?content=schedaTeam&teamid=".$_SESSION["teamid"]."'>Team: ".$teamname[1]."</a>";
   echo "<ul class='flyout-content nav stacked flyout-background'>";
   $teams = getAllUserTeam($_SESSION['id']);
   foreach ($teams as $t) 

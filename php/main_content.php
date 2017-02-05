@@ -42,6 +42,10 @@ else {
   case 'compraGiocatore':
     include_once("php/content/compraGiocatore.php");
     break;
+
+  case 'classifica':
+    include_once("php/content/classifica.php");
+    break;
   
   case 'test':
     include_once("php/content/test.php");

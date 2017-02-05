@@ -1,4 +1,4 @@
-body {background-image: url(../img/image.png);}
+body {background-image: url(../img/image.png); font-family: Arial, Verdana, sans-serif;}
 
 #header {padding-left: 20px; text-align: left; height: 40px; position: fixed; left: 0; top: 0; width: 100%; background: rgba(200, 100, 0, 0.8);}
 #header h1 {float: left; font-size: 15px; margin-right: 40px;}
@@ -109,17 +109,21 @@ body {background-image: url(../img/image.png);}
 #heaedrTeam table td {height: 30px; text-align: center;}
 #headerTeam .selected {background: rgba(255, 255, 255, 0.5)}
 
+#puntiGuadagnati {margin-top: 30px;margin-left: auto; margin-right: auto;width: 600px; text-align: right; font-size: 22px; }
+#schieraFormazione {margin-top: 30px; margin-left: 15%; margin-right: auto; width: 600px;}
+
 .scrollTable {color: blue; margin-top: 30px; width: 100%; text-align: center; cursor: pointer;}
 .scrollTable a:hover {text-decoration: underline}
 
-#footer {display: none;height: 40px; width: 860px; margin-left: auto; margin-right: auto;background-color: rgba(200, 100, 0, 0.8); margin-top: 500px;}
+#footer {display: none; background: rgba(255, 255, 255, 0.5);width: 925px; margin-left: 23.5%;}
 
-.click {color: black; text-decoration: none;}
+.click {text-decoration: none; color: black;}
 .click:hover {text-decoration: underline; cursor: pointer; color: rgba(200, 100, 0, 1);}
 .stdWidth {}
 .stdHeight {height: 600px;}.invisible {display: none}
 .invisible {display: none}
+.ontheright {margin-left: 40%;}
 
-.link {color: rgba(200, 100, 0, 1); text-decoration: none;}:hover {text-decoration: underline}
+.link {color: rgba(200, 100, 0, 1); text-decoration: none;}
 .link:hover {text-decoration: underline}
 

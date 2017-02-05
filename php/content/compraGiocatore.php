@@ -2,18 +2,14 @@
 
 <div id="divSearch">
 
-<?php
-echo $_SESSION['teamid'];
-?>
 </div>
 
 <form id="formCompra" action="php/team_functions.php?fun=compra" method="POST">
 <?php
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
-
-  $use_team = $_SESSION['id_team'];
 }
+$use_team = $_SESSION['id_team'];
 if (empty($_SESSION['id'])) {
   header('Location: index.php?content=login&messaggio=needLogin');
 }

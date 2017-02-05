@@ -32,7 +32,7 @@ function salvaRelazioniUtentiTeam() {
 function importaRelazioniUtentiTeam($data) {
 
   include("../setting.php");
-
+  var_dump($data);
   // per ogni relazione
   foreach ($data as $d) {
 

@@ -48,11 +48,60 @@ if (!empty($_GET['fun'])) {
 
 }
 
+if (!empty($_POST['fun'])) {
+
+  switch ($_POST['fun']) {
+
+  case 'schieraFormazione':
+    $schierati = $_POST['formazione'];
+    $teamid = $_POST['teamid'];
+    $result = schieraFormazione($schierati, $teamid);
+    echo $result;
+    break;
+
+  case 'compra':
+    $id_player = getPlayerByName($_POST['playername']);
+    $id_player = mysql_fetch_row($id_player);
+    $id_player = $id_player[0];
+
+    $id_team = getTeamByName($_POST['teamname']);
+    $id_team = mysql_fetch_row($id_team);
+    $id_team = $id_team[0];
+    echo "asdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
+
+    compraGiocatore($id_player, $id_team);
+    break;
+
+  }
+}
+
+function getClassificaTable() {
+
+  require("setting.php");
+  $query = "SELECT * FROM classifica ORDER BY punti desc";
+  $result = mysql_query($query, $conn) or die(mysql_error());
+  return $result;
+}
+
+function schieraFormazione($schierati, $teamid) {
+
+  require("setting.php");
+  for ($i=0; $i<count($schierati); $i++) {
+    $player = $schierati[$i];
+    if ($player[1] == "true") $titolare = 1;
+    else $titolare = 0;
+    $query = "UPDATE giocatori_team SET titolare=$titolare WHERE id_giocatore=$player[0] AND id_team=$teamid";
+    $result = mysql_query($query, $conn) or die(mysql_error());
+
+  }
+}
+
 function compraGiocatore($id_giocatore, $id_team) {
 
   require("setting.php");
-  session_start();
-
+  if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+  }
   $ok = true;
 
   $team = getTeamById($id_team);
@@ -65,22 +114,22 @@ function compraGiocatore($id_giocatore, $id_team) {
   }
   
   if ($ok) {
-    $query = "INSERT INTO giocatori_team VALUES('".$id_giocatore."', '".$id_team."')";
-    $result = mysql_query($query, $conn);
+    $query = "INSERT INTO giocatori_team VALUES('".$id_giocatore."', '".$id_team."', 0)";
+    $result = mysql_query($query, $conn) or die(mysql_error());
   }
 
   if (mysql_errno() == 0) {
     soldiSquadra($id_team, $player[3]);
-    $_SESSION['message'] = "Hai comprato ".$player[1]." per la squadra ".$team[1].".";
+    // $_SESSION['message'] = "Hai comprato ".$player[1]." per la squadra ".$team[1].".";
     header('Location: ../index.php?content=compraGiocatore');
   } 
   elseif (mysql_errno() != 0 || !$ok) {
     if (mysql_errno() == 1062) {
       $_SESSION['message'] = "Hai già comprato questo giocatore per questo team";
     }
-    header('Location: ../index.php?content=compraGiocatore');
   }  
-  echo $_SESSION['message']; 
+  header('Location: ../index.php?content=schedaTeam&teamid='.$id_team);
+  //echo $_SESSION['message']; 
 }
 
 function vendiGiocatore($id_giocatore, $id_team) {

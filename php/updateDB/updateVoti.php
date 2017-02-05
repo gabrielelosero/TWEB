@@ -1,6 +1,5 @@
 <?php
 
-inserisciNuoviVoti();
 function inserisciNuoviVoti() {
 
   include("../setting.php");
@@ -47,6 +46,7 @@ function inserisciNuoviVoti() {
 
           $nw_xpath = new DOMXPath($nwDOM);
 
+          $skip = FALSE;
           //prendiamo il nome del giocatore
           foreach ($nw_xpath->query("//div/div/span[contains(concat(' ', @class, ' '), ' playerNameIn ')]") as $nome) {
           
@@ -55,6 +55,8 @@ function inserisciNuoviVoti() {
             if ($result != 0) {
               $s .= "(".$result[0].",";
             } else {
+              echo $nome->textContent;
+              $skip = TRUE;
               break;
             }
           }
@@ -66,12 +68,14 @@ function inserisciNuoviVoti() {
           $n_xpath = new DOMXPath($nDOM);
 
           // e gli altri parametri relativi al voto del giocatore
-          foreach ($nw_xpath->query("//div[contains(concat(' ', @class, ' '), ' inParameter ')]") as $par) {
-            $p = str_replace("-", "0", $par->textContent);
-            $s .= trim($p).",";
+          if (!$skip) {
+            foreach ($nw_xpath->query("//div[contains(concat(' ', @class, ' '), ' inParameter ')]") as $par) {
+              $p = str_replace("-", "0", $par->textContent);
+              $s .= trim($p).",";
+            }
+            $s = rtrim($s, ",");
+            $s .= "),";
           }
-          $s = rtrim($s, ",");
-          $s .= "),";
         }
       }
       $query .= $s;

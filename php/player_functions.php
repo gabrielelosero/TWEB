@@ -71,11 +71,25 @@ function genScrollPlayerTable() {
 function genVotiTable($teamid) {
 
   require("setting.php");
-  $query = "SELECT id_giocatore FROM giocatori_team WHERE id_team=$teamid";
+  $query = "SELECT id_giocatore FROM giocatori_team WHERE id_team=$teamid AND titolare=1";
   $result = mysql_query($query, $conn) or die(mysql_error());
-  $columns = ['voti', 'goal', 'assist', 'rigori', 'rigori_sbagliati', 'autogoal', 'ammonizioni', 'espulsioni', 'fanta_voto'];
+  $columns = ['voti', 'voti_goal', 'assist', 'rigori', 'rigori_sbagliati', 'autogoal', 'voti_ammonizioni', 'voti_espulsioni', 'fanta_voto', 'schedavoti'];
   while ($r = mysql_fetch_row($result)) {
     $q = "SELECT * FROM giocatori WHERE id=$r[0]";
+    $res = mysql_query($q, $conn) or die(mysql_error());
+    $table = genPlayerTable2($res, $columns);
+    echo $table;
+  }
+}
+
+function genFormazioneTable($teamid) {
+
+  require("setting.php");
+  $columns = ['ruolo', 'presenze', 'goal', 'voti', 'formazione'];
+  $query = "SELECT id_giocatore FROM giocatori_team WHERE id_team=$teamid";
+  $result = mysql_query($query, $conn) or die(mysql_error());
+  while ($r = mysql_fetch_row($result)) {
+     $q = "SELECT * FROM giocatori WHERE id=$r[0]";
     $res = mysql_query($q, $conn) or die(mysql_error());
     $table = genPlayerTable2($res, $columns);
     echo $table;
@@ -85,6 +99,7 @@ function genVotiTable($teamid) {
 
 function genPlayerTable2($r, $columns) {
 
+  require("setting.php");
   $pari = TRUE;
   $table = "";
 
@@ -166,22 +181,28 @@ function genPlayerTable2($r, $columns) {
     
     if (in_array('voti', $columns)) {
       
-      $q = "SELECT * FROM voti_giocatori WHERE id_giocatore=$g[0]";
-      echo $q;
-      $r = mysql_query($q, $conn) or die(mysql_error());
+      $q = "SELECT * FROM voti_giocatori WHERE id_giocatore=".$g[0];
+      $r = mysql_query($q, $conn) or die(mysql_error($conn));
 
+      if (mysql_num_rows($r) == 0) {
+        if (in_array("formazione", $columns)) {
+          $table .= "<td><span>-</span></td>";
+        }
+        if (in_array("schedavoti", $columns)) {
+          for ($k=0; $k<9; $k++)
+            $table .= "<td><span>-</span></td>";
+        }
+      }
       $re = mysql_fetch_row($r);
-      echo $re;
-
       for ($k=0; $k<count($re); $k++) {
 
         switch ($k) {
         case '2':
-          if (in_array('voto', $columns))
+          if (in_array('voti', $columns))
             $table .= "<td><span>".$re[$k]."</span></td>";
           break;
         case '3':
-          if (in_array('goal', $columns))
+          if (in_array('voti_goal', $columns))
           $table .= "<td><span>".$re[$k]."</span></td>";
           break;
 
@@ -206,32 +227,32 @@ function genPlayerTable2($r, $columns) {
           break;
 
         case '8':
-          if (in_array('ammonizioni', $columns))
+          if (in_array('voti_ammonizioni', $columns))
           $table .= "<td><span>".$re[$k]."</span></td>";
           break;
 
         case '9':
-          if (in_array('espulsioni', $columns))
+          if (in_array('voti_espulsioni', $columns))
           $table .= "<td><span>".$re[$k]."</span></td>";
           break;
 
         case '10':  
           if (in_array('fanta_voto', $columns))
-          $table .= "<td><span>".$re[$k]."</span></td>";
+          $table .= "<td class='fantavoto'><span>".$re[$k]."</span></td>";
           break;
-
-
-
         }
       }    
     }
 
 
     if (in_array('compra', $columns))
-      $table .= "<td><a class='click' href='index.php?content=compraGiocatore&playerid=$g[0]'>C</a></td></tr>";
+      $table .= "<td><a class='click' href='index.php?content=compraGiocatore&playerid=$g[0]'>Compra</a></td></tr>";
     
     if (in_array('vendi', $columns))
       $table .= "<td><a onclick='vendiGiocatore($g[0])'>VENDI</a></td>";
+
+    if (in_array('formazione', $columns))
+      $table .= "<td><input type='checkbox' name='inputBox' value='false'></td>";
   }
   return $table;
 

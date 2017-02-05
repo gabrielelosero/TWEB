@@ -66,24 +66,22 @@ if (!empty($_GET['teamid'])) {
 echo "</div>";
 
 echo "<div class='schedaTeamFormazione invisible'>";
-
-$voti_table = genVotiTable($_GET['teamid']);
-echo $voti_table;
-
-
+echo "<table class='tableGiocatori'>";
+echo "<tr><th>Nome</th><th>Squadra</th><th>Ruolo</th><th>Presenze</th><th>Goal</th></th><th>Fanta Voto</th><th>Titolare</th></tr>";
+$formazione_table = genFormazioneTable($_GET['teamid']);
+echo "</table>";
+echo "<button id='schieraFormazione' onclick='schieraFormazione(".$_SESSION['teamid'].")'>Schiera Formazione</button>";
+echo "<div id='formazioneErrorDiv'></div>";
 echo "</div>";
 
 echo "<div class='schedaTeamVoti invisible'>";
-echo "qweqwqewqew";
+echo "<table class='tableGiocatori tableVoti'>";
+echo "<tr><th>Nome</th><th>Squadra</th><th>Voto</th><th>Goal</th><th>Assist</th><th>Rigori</th><th>Rigori Sbagliati</th><th>Autogoal</th><th>Ammonizioni</th><th>Espulsioni</th><th>Fanta Voto</th></tr>";
+$voti_table = genVotiTable($_GET['teamid']);
+echo "</table>";
+echo "<div id='puntiGuadagnati'><span>Totale Punti: </span></div>";
+
 echo "</div>";
-
-
-/*echo "<div id='teamPlayers'>";
-
-   echo "<div id='votiTeam' class='invisible'>";
-  $giocatori = getPlayersIdByTeam($team[0]);
-  $giocatori = getVotiGiocatoriByIds($giocatori);*/
-
 
 
 ?>

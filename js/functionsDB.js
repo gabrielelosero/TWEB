@@ -72,6 +72,17 @@ $(document).ready(function() {
     });
   }
 
+  // calcola il punteggio della giornata in schedaTeam->Ultima giornata
+  if ($("#puntiGuadagnati").length) {
+    votofinale = 0;
+    voto = $(".tableVoti").find(".fantavoto");
+    voto.each(function() {
+      votosingolo = parseFloat($(this).text());
+      votofinale += votosingolo;
+    });
+    $("#puntiGuadagnati").text("Totale Punti: " + votofinale);
+  }
+
 });
 
 function initialise() {
@@ -272,5 +283,38 @@ function switchTeamSection(section) {
     $("#headerTeamVoti").addClass("selected");
     $('.schedaTeamFormazione').addClass("invisible");
     $('.schedaTeamGenerale').addClass("invisible");
+  }
+}
+
+function schieraFormazione(team) {
+  if ($('.schedaTeamFormazione').length) {
+    table = $('.schedaTeamFormazione');
+    trs = table.find('tr');
+
+    schierati = [];
+    firstrow = 1;
+    
+    trs.each(function() {
+      if (firstrow == 1) {
+        firstrow = 0;
+      }
+      else {
+        first = $(this).find("td:first");
+        last = $(this).find("td:last input");
+        id = parseInt(first.text());
+        value = last.is(":checked");
+        schierati.push([id, value]);
+      }
+    });
+
+    $.ajax({
+      method: "POST",
+      url: "php/team_functions.php",
+      data: {fun:"schieraFormazione", formazione:schierati, teamid:team},
+      success: function(data) {
+        alert(data);
+      }
+    });
+
   }
 }
