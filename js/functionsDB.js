@@ -244,3 +244,33 @@ function appendResultToTable(data) {
 
   }
 }
+
+function switchTeamSection(section) {
+  
+  $("#headerTeamGenerale").removeClass("selected");
+  $("#headerTeamFormazione").removeClass("selected");
+  $("#headerTeamVoti").removeClass("selected");
+
+  $('.schedaTeamGenerale').removeClass("invisible");
+  $('.schedaTeamFormazione').removeClass("invisible");
+  $('.schedaTeamVoti').removeClass("invisible");
+  $('.schedaTeamGenerale').removeClass("selected");
+  $('.schedaTeamFormazione').removeClass("selected");
+  $('.schedaTeamVoti').removeClass("selected");
+
+  if (section == "generale") {
+    $(".schedaTeamGenerale").addClass("selected");
+    $('.schedaTeamFormazione').addClass("invisible");
+    $('.schedaTeamVoti').addClass("invisible");
+  }
+  if (section == "formazione") {
+    $("#headerTeamFormazione").addClass("selected");
+    $('.schedaTeamGenerale').addClass("invisible");
+    $('.schedaTeamVoti').addClass("invisible");
+  }
+  if (section == "voti") {
+    $("#headerTeamVoti").addClass("selected");
+    $('.schedaTeamFormazione').addClass("invisible");
+    $('.schedaTeamGenerale').addClass("invisible");
+  }
+}

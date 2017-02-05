@@ -1,4 +1,4 @@
-<h2 class="titoloDue">TEAM</h2>
+<h2 class="titoloDue">Tutti i Team</h2>
 
 <?php
 
@@ -18,11 +18,11 @@ if (!empty($_GET['mode'])) {
     }
 
     $teams = getAllTeam();
-    echo "<table>";
+    echo "<table class='tableTeam'>";
     echo $teams;
+    echo "<tr><td colspan='4'><a href='index.php?content=team&mode=create'><button>Crea un nuovo Team</button></a></td></tr>";
     echo "</table>";
     echo "<br /><br />";
-    echo "<a href='index.php?content=team&mode=create'>Crea un nuovo Team</a>";
   }
   
   elseif ($_GET['mode'] == 'create') {

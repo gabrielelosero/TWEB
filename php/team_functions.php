@@ -199,10 +199,32 @@ function soldiSquadra($id_team, $valore) {
   $result = mysql_query($query, $conn) or die(mysql_error());
 }
 
+function isMyTeam($id_user, $id_team) {
+  
+  require("setting.php");
+
+  $query = "SELECT * FROM utenti_team WHERE id_utente='$id_user' AND id_squadra='$id_team'";
+  $result =  mysql_query($query, $conn) or die(mysql_error());
+
+  if (mysql_num_rows($result) != 0) return TRUE;
+  else return FALSE;
+  
+}
+
 function genTeamTable($result) {
 
-  $table = "";
+  $pari = TRUE;
+  $table .= "<tr><th>Nome Squadra</th><th>Nome Utente</th><th>Soldi</th><th>Punti</th></tr>";
   while ($t = mysql_fetch_row($result)) {
+
+    if ($pari) {
+      $table .= "<tr class='trpari'>";
+      $pari = FALSE;
+    }
+    else {
+      $table .= "<tr class='trdispari'>";
+      $pari = TRUE;
+    }
 
     $user = getUserById($t[0]);
     $username = $user[1];
@@ -211,8 +233,12 @@ function genTeamTable($result) {
     $teamid = $team[0];
     $teamname = $team[1];
 
-    $table .= "<tr><td>".$username."</td>";
-    $table .= "<td><a href='index.php?content=schedaTeam&teamid=$teamid'>".$teamname."</a></td></tr>";
+    $table .= "<td>";
+    $table .= "<a href='index.php?content=schedaTeam&teamid=$teamid'>".$teamname."</a></td>";
+    $table .= "<td>".$username."</td>";
+    $table .= "<td>".$team[2]."</td>";
+    $table .= "<td>".$team[3]."</td>";
+    $table .= "</tr>";
   
   }
   return $table;

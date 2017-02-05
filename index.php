@@ -10,15 +10,9 @@
 <body>
 <?php
 
-/*
- *
- * Includo l'header e i file con le funzioni in php
- *
- */
 include_once("php/player_functions.php");
 include_once("php/auth_functions.php");
 include_once("php/team_functions.php");
-
 
 include_once("php/main_content.php");
 
