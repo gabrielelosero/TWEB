@@ -5,7 +5,7 @@
   <title>Fantacalcio TWEB</title>
   <link href="css/stile.css" type="text/css" rel="stylesheet" />
   <script src="js/jquery/jquery.js" type="text/javascript"></script>
-  <script src="js/functionsDB.js" type="text/javascript"></script>
+  <script src="js/functions.js" type="text/javascript"></script>
 </head>
 
 <body>

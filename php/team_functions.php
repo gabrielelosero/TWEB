@@ -55,8 +55,19 @@ if (!empty($_POST['fun'])) {
   case 'schieraFormazione':
     $schierati = $_POST['formazione'];
     $teamid = $_POST['teamid'];
-    $result = schieraFormazione($schierati, $teamid);
-    echo $result;
+    $num_schierati = 0;
+    for ($i=0; $i<count($schierati); $i++) {
+      if ($schierati[$i][1] == "true")
+        $num_schierati ++;
+    }
+    if ($num_schierati == 11) {
+      $result = schieraFormazione($schierati, $teamid);
+      echo "Formazione schierata!";
+    }
+    else {
+      echo "Devi schierare 11 giocatori";
+    }
+      
     break;
 
   case 'compra':
@@ -67,7 +78,6 @@ if (!empty($_POST['fun'])) {
     $id_team = getTeamByName($_POST['teamname']);
     $id_team = mysql_fetch_row($id_team);
     $id_team = $id_team[0];
-    echo "asdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
 
     compraGiocatore($id_player, $id_team);
     break;

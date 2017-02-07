@@ -35,8 +35,6 @@ $p = genPlayerTable2($r, $columns);
 echo $p;
 echo "</table>";
 
-
-// echo "<span>Giocatore: </span>";
 if (!empty($_GET['playerid'])) {
 
   $playerid = $_GET['playerid'];
@@ -47,22 +45,15 @@ if (!empty($_GET['playerid'])) {
 }
 echo "<br />";
 echo "<span>Team: </span>";
-if (!empty($_GET['teamid'])) {
 
-  $teamid = $_GET['teamid'];
-  $team = getTeamById($teamid);
-  $teamname = $team[1];
-  echo "<input type='text' name='teamname' value='".trim($teamname)."' >";
-
+echo "<select type='text' name='teamname' placeholder='Nome Team' >";
+$allteam = getAllUserTeam($_SESSION['id']);
+$myteam = getTeamById($_SESSION['teamid']);
+echo "<option value='".$myteam[1]."'>".$myteam[1]."</option>";
+foreach ($allteam as $t) {
+  echo "<option value='".$t[1]."'>".$t[1]."</option>";
 }
-else {
-  echo "<select type='text' name='teamname' placeholder='Nome Team' >";
-  $team = getAllUserTeam($_SESSION['id']);
-  foreach ($team as $t) {
-    echo "<option value='".$t[1]."'>".$t[1]."</option>";
-  }
-  echo "</select>";
-}
+echo "</select>";
 
 if (!empty($_SESSION['message'])) {
   echo "<p style='font-size: 20px'>".$_SESSION['message']."</p>";

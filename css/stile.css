@@ -51,9 +51,9 @@ body {background-image: url(../img/image.png); font-family: Arial, Verdana, sans
 .gotoRegistrati a {color: black; text-decoration: none;}
 .gotoRegistrati a:hover {text-decoration: underline;}
 #formLogin fieldset {border: none;}
-#formSignup fieldset {border: none;}
 
-#formSignup {border: 1px solid rgba(200, 100, 0, 1); background: #FFF; width: 400px; height: 280px; margin-left: auto; margin-right: auto; margin-top: 50px; border-radius: 5px;}
+#formSignup fieldset {border: none;}
+#formSignup {border: 1px solid rgba(200, 100, 0, 1); background: #FFF; width: 400px; height: 300px; margin-left: auto; margin-right: auto; margin-top: 50px; border-radius: 5px;}
 #formSignup span {display: block; text-align: center; font-size: 25px; margin-bottom: 20px; margin-top: 10px; }
 
 .messageDiv {border: 1px solid red; width: 300px; margin-left: 40px; margin-top: 15px; text-align: center;}
