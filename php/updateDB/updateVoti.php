@@ -55,7 +55,6 @@ function inserisciNuoviVoti() {
             if ($result != 0) {
               $s .= "(".$result[0].",";
             } else {
-              echo $nome->textContent;
               $skip = TRUE;
               break;
             }
@@ -83,7 +82,6 @@ function inserisciNuoviVoti() {
     }
   }
   $query = rtrim($query, ",");
-  echo $query;
   $exec = mysql_query($query, $conn) or die(mysql_error());
 }
 

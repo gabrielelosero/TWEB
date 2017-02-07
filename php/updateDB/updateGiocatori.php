@@ -120,7 +120,6 @@ function inserisciNuoviGiocatori() {
         $query .= "(".$x[$i]."); ";
     }
 
-    echo $query;
     $result = mysql_query($query, $conn) or die(mysql_error());
 }
 

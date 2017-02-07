@@ -25,29 +25,23 @@ function salvaRelazioniUtentiTeam() {
     // metto una relazione dentro l'array con il nome al posto dell'ID
     array_push($array_rel, array($nome_giocatore, $id_team));
   }
-  var_dump($array_rel);
   return $array_rel;
 }
 
 function importaRelazioniUtentiTeam($data) {
 
   include("../setting.php");
-  var_dump($data);
   // per ogni relazione
   foreach ($data as $d) {
 
-    echo "<br /><br />seleziono il giocatore $d[0]";
     $query = "SELECT id FROM giocatori WHERE nome LIKE '%$d[0]%'";
-    echo "<br />$query<br /";
     $result = mysql_query($query, $conn) or die(mysql_error());
     $r = mysql_fetch_row($result);
 
     if (!empty($r)) {
-      echo "importo la relazione per $d[0]<br /><br />";
       $q = "INSERT INTO giocatori_team (id_giocatore, id_team) VALUES ($r[0], $d[1])";
       $res = mysql_query($q, $conn) or die(mysql_error());
     } else {
-      echo "<br />ATTENZIONE: il giocatore $d[0] non gioca più nel campionato italiano<br />";
     }
     
   }

@@ -1,20 +1,8 @@
 <?php
 
-aggiornaClassificaPunti();
-
 function aggiornaClassificaPunti() {
 
   include("../setting.php");
-
-  // prendo gli utenti che ci sono
-  //
-  // uno per uno guardo che squadre hanno
-  //
-  // guardo per ogni squadra che giocatori schierati ha
-  //
-  // somma dei punti dei giocatori schierati
-  //
-  // inserisco in una tabella utente - squadra - punti totali - ultima giornata
 
   $query_all_users = "SELECT id FROM utenti";
   $result_all_users = mysql_query($query_all_users, $conn) or die(mysql_error());
@@ -42,13 +30,9 @@ function aggiornaClassificaPunti() {
       }
 
       $query = "INSERT INTO classifica (id_utente, id_team, punti_ultima, punti) VALUES ($id_utente, $team_id, $voto_squadra, $voto_squadra) ON DUPLICATE KEY UPDATE punti_ultima=$voto_squadra, punti=punti+$voto_squadra";
-      echo $query;
       $result = mysql_query($query, $conn) or die(mysql_error());
     }
   }
 }
-
-// INSERT INTO classifica (id_utente, id_team, punti_ultima, punti) VALUES (idu, idt, pu, p) ON DUPLICATE KEY UPDATE pu=pu p=p+pu
-
 
 ?>
